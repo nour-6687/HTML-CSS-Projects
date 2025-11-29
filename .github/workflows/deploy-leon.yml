@@ -1,0 +1,33 @@
+name: Deploy T01-Leon (HTML/CSS)
+
+on:
+  push:
+    branches:
+      - main # Make sure this matches your main branch name
+    paths:
+      - 'T01-Leon/**' # Only run when files inside the T01-Leon folder change
+
+# Sets the permissions required for the GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      # ⬆️ Upload the entire T01-Leon folder as the deployment artifact
+      - name: ⬆️ Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # The path to your HTML/CSS project's folder
+          path: 'T01-Leon'
+
+      # 🚀 Deploy the artifact to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
